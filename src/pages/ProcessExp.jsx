@@ -1,7 +1,7 @@
 import React from "react";
 import { Search } from "lucide-react";
 
-const Homepage = () => {
+const ProcessExp = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-slate-900 to-blue-900 relative overflow-hidden">
       {/* Hexagonal Pattern Background */}
@@ -300,4 +300,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default ProcessExp;
