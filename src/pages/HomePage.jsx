@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../index.css";
+import { useNavigate } from "react-router-dom";
 
 const sampleRecs = [
   {
@@ -92,6 +93,7 @@ function TopNav() {
 
 /* --------------- LEFT HERO --------------- */
 function HeroPanel() {
+  const navigate = useNavigate();
   return (
     <section className="relative rounded-2xl border border-white/10 bg-brand-800/60 p-6 md:p-8 shadow-[0_0_40px_rgba(0,0,0,.25)] overflow-hidden">
       {/* neon corner line (just a vibe) */}
@@ -114,7 +116,9 @@ function HeroPanel() {
           <button className="rounded-xl bg-brand-neon/90 text-black px-5 py-3 font-semibold shadow-neon hover:bg-brand-neon transition">
             Start now!
           </button>
-          <button className="rounded-xl bg-white/10 px-5 py-3 font-semibold border border-white/15 hover:bg-white/15 transition">
+          <button className="rounded-xl bg-white/10 px-5 py-3 font-semibold border border-white/15 hover:bg-white/15 transition" onClick={() => {
+            navigate("/process-exp");
+          }}>
             Learn how it works
           </button>
         </div>
