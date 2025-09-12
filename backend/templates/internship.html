@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internship Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+<body>
+<header><h1>Internship Registration</h1></header>
+<div class="container">
+    <form id="internshipForm">
+        <label>Internship ID:</label>
+        <input type="number" name="id" required>
+        <label>Title:</label>
+        <input type="text" name="title" required>
+        <label>Sector:</label>
+        <input type="text" name="sector">
+        <label>Location:</label>
+        <input type="text" name="location">
+        <label>Skills (comma separated):</label>
+        <input type="text" name="skills">
+        <label>Experience (years):</label>
+        <input type="number" name="experience">
+        <label>Education (comma separated):</label>
+        <input type="text" name="education">
+        <button type="submit">Register Internship</button>
+    </form>
+    <h2>Registered Internships</h2>
+    <table id="internshipTable">
+        <thead>
+        <tr>
+            <th>ID</th><th>Title</th><th>Sector</th><th>Location</th><th>Skills</th><th>Experience</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <a href="/" class="back-link">← Back Home</a>
+</div>
+<script>
+    async function loadInternships() {
+        const res = await fetch("/internships");
+        const internships = await res.json();
+        const tbody = document.querySelector("#internshipTable tbody");
+        tbody.innerHTML = "";
+        internships.forEach(i => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${i.internship_id}</td>
+                <td>${i.title}</td>
+                <td>${i.sector}</td>
+                <td>${i.location}</td>
+                <td>${i.requirements.skills.join(", ")}</td>
+                <td>${i.requirements.experience || "-"}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    document.getElementById("internshipForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const body = {
+            id: parseInt(formData.get("id")),
+            title: formData.get("title"),
+            sector: formData.get("sector"),
+            location: formData.get("location"),
+            requirements: {
+                skills: formData.get("skills").split(",").map(s => s.trim()).filter(Boolean),
+                experience: parseInt(formData.get("experience")) || 0,
+                education: formData.get("education").split(",").map(s => s.trim()).filter(Boolean)
+            }
+        };
+        await fetch("/internship", {
+            method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)
+        });
+        e.target.reset();
+        loadInternships();
+    });
+    loadInternships();
+</script>
+</body>
+</html>
