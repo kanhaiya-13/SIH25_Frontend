@@ -1,1 +1,13 @@
+@tailwind utilities;
+@tailwind base;
+@tailwind components;
 @import "tailwindcss";
+
+/* optional: subtle grid glow on dark backgrounds */
+/* .bg-grid {
+  background-image:
+    radial-gradient(transparent 1px, rgba(255,255,255,0.04) 1px),
+    linear-gradient(135deg, rgba(138,165,255,.08), rgba(57,210,255,.06));
+  background-size: 22px 22px, 100% 100%;
+  background-position: -1px -1px, 0 0;
+} */
