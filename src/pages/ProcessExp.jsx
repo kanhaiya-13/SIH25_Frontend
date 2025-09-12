@@ -3,15 +3,15 @@ import { Search } from "lucide-react";
 
 const Homepage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-slate-900 to-blue-900 relative overflow-hidden">
       {/* Hexagonal Pattern Background */}
       <div className="absolute inset-0 opacity-20">
         {/* Top right hexagons */}
-        <div className="absolute top-8 right-8 w-64 h-64">
+        <div className="absolute top-8 right-8 w-72 h-72">
           <svg viewBox="0 0 200 200" className="w-full h-full">
-            {Array.from({ length: 15 }, (_, i) => {
+            {Array.from({ length: 20 }, (_, i) => {
               const row = Math.floor(i / 5);
-              const col = i % 5;
+              const col = i % 4;
               const x = col * 25 + (row % 2) * 12.5;
               const y = row * 22;
               return (
@@ -29,10 +29,10 @@ const Homepage = () => {
         </div>
 
         {/* Bottom left hexagons */}
-        <div className="absolute bottom-8 left-8 w-48 h-48">
+        <div className="absolute bottom-8 left-8 w-72 h-72">
           <svg viewBox="0 0 150 150" className="w-full h-full">
-            {Array.from({ length: 12 }, (_, i) => {
-              const row = Math.floor(i / 4);
+            {Array.from({ length: 20 }, (_, i) => {
+              const row = Math.floor(i / 5);
               const col = i % 4;
               const x = col * 25 + (row % 2) * 12.5;
               const y = row * 22;
@@ -291,7 +291,7 @@ const Homepage = () => {
 
         {/* CTA Button */}
         <div className="flex justify-center">
-          <button className="bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white font-semibold px-8 py-3 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200">
+          <button className="bg-gradient-to-r from-[#2165BC] to-[#FDE2E3] hover:from-[#FDE2E3] hover:to-[#2165BC] text-black font-semibold px-8 py-3 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-200">
             Start Your Journey Today
           </button>
         </div>
