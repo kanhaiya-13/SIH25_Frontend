@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
@@ -14,10 +14,17 @@ export default {
         },
       },
       boxShadow: {
-        neon: "0 0 20px rgba(57,210,255,.45), inset 0 0 20px rgba(57,210,255,.15)",
+        neon:
+          "0 0 20px rgba(57,210,255,.45), inset 0 0 20px rgba(57,210,255,.15)",
       },
       fontFamily: {
-        display: ["Inter", "system-ui", "ui-sans-serif", "Segoe UI", "Roboto"],
+        display: [
+          "Inter",
+          "system-ui",
+          "ui-sans-serif",
+          "Segoe UI",
+          "Roboto",
+        ],
       },
     },
   },
