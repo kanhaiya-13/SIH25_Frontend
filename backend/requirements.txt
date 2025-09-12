@@ -1,0 +1,7 @@
+Flask
+PyMuPDF
+python-docx
+pdfplumber
+scikit-learn
+textstat
+language-tool-python

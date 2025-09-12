@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Internships</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+<body>
+<header><h1>Find Your Perfect Internship</h1></header>
+<div class="container">
+    <form id="candidateForm">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="resumeFile">Upload Your Resume (.pdf, .docx):</label>
+        <input type="file" id="resumeFile" name="file" accept=".pdf,.docx" required>
+        <button type="submit">Get Recommendations</button>
+    </form>
+    <div id="loading" style="display:none; margin-top: 20px;">
+        <p>Analyzing your resume and finding the best matches... Please wait.</p>
+    </div>
+    <div id="results" style="margin-top:20px;"></div>
+    <p><a href="/">← Back Home</a></p>
+</div>
+
+<script>
+    document.getElementById("candidateForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const resultsContainer = document.getElementById("results");
+        const loadingIndicator = document.getElementById("loading");
+
+        resultsContainer.innerHTML = "";
+        loadingIndicator.style.display = "block";
+
+        try {
+            const res = await fetch("/recommendations", { method: "POST", body: formData });
+            if (!res.ok) {
+                const errorData = await res.json();
+                throw new Error(errorData.error || "An unknown error occurred.");
+            }
+            const data = await res.json();
+            displayResults(data);
+        } catch (error) {
+            resultsContainer.innerHTML = `<div class="card error"><p><strong>Error:</strong> ${error.message}</p></div>`;
+        } finally {
+            loadingIndicator.style.display = "none";
+        }
+    });
+
+    function displayResults(data) {
+        const container = document.getElementById("results");
+        container.innerHTML = "<h2>Analysis Results</h2>";
+
+        // --- NEW: Display ATS Friendliness Report ---
+        if (data.ats_report) {
+            const atsCard = document.createElement("div");
+            atsCard.className = "card";
+            const suggestionsHTML = data.ats_report.suggestions.map(s => `<li>${s}</li>`).join("") || "<li>Your resume seems to follow major ATS best practices!</li>";
+            atsCard.innerHTML = `
+                <h3>ATS Friendliness Report (Score: ${data.ats_report.score}/100)</h3>
+                <div class="progress">
+                    <div class="progress-bar" style="width:${data.ats_report.score}%">${data.ats_report.score}</div>
+                </div>
+                <ul>${suggestionsHTML}</ul>
+            `;
+            container.appendChild(atsCard);
+        }
+
+        // Display Recommendations
+        if (data.recommendations && data.recommendations.length > 0) {
+             const recommendationsHeader = document.createElement("h3");
+             recommendationsHeader.textContent = "Top Internship Recommendations";
+             container.appendChild(recommendationsHeader);
+
+            data.recommendations.forEach(r => {
+                const card = document.createElement("div");
+                card.className = "card";
+                const inferredSkillsHTML = r.fit_breakdown.inferred_skills.length > 0
+                    ? `<p><strong>Inferred Skills:</strong> ${r.fit_breakdown.inferred_skills.join(", ")}</p>`
+                    : '';
+
+                card.innerHTML = `
+                    <h4>${r.title} (Fit Score: ${r.fit_score.toFixed(1)}%)</h4>
+                    <div class="progress"><div class="progress-bar" style="width:${r.fit_score}%">${r.fit_score.toFixed(1)}%</div></div>
+                    <p><strong>Matched Skills:</strong> ${r.fit_breakdown.matched_skills.join(", ") || "None"}</p>
+                    ${inferredSkillsHTML}
+                    <p><strong>Missing Skills:</strong> ${r.fit_breakdown.missing_skills.join(", ") || "None"}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Display Resume Quality
+        if (data.resume_quality) {
+            const qualityCard = document.createElement("div");
+            qualityCard.className = "card";
+
+            const createListItem = (item) => {
+                let contextHTML = item.context ? ` <span class="context">(Found: "<em>${item.context}</em>")</span>` : "";
+                let replacementsHTML = item.replacements && item.replacements.length > 0 ? ` <span class="replacements">Suggestions: ${item.replacements.join(', ')}</span>` : '';
+                return `<li>${item.message}${contextHTML}${replacementsHTML}</li>`;
+            };
+
+            const grammarHTML = data.resume_quality.grammar_issues.map(createListItem).join("") || "<li>No major grammar issues found.</li>";
+            const suggestionsHTML = data.resume_quality.suggestions.map(createListItem).join("") || "<li>No major style suggestions.</li>";
+
+            qualityCard.innerHTML = `
+                <h3>Resume Quality Feedback</h3>
+                <h4>Grammar & Style Issues</h4>
+                <ul>${grammarHTML}</ul>
+                <h4>Suggestions for Improvement</h4>
+                <ul>${suggestionsHTML}</ul>
+            `;
+            container.appendChild(qualityCard);
+        }
+    }
+</script>
+</body>
+</html>
