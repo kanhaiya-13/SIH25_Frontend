@@ -22,13 +22,11 @@ export default function StartProcess() {
   ];
 
   const sectorOptions = [
-    "Technology",
-    "Finance",
-    "Healthcare",
-    "Education",
-    "Retail",
-    "Manufacturing",
-    "Government",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
   ];
 
   const locationOptions = [
@@ -112,14 +110,14 @@ export default function StartProcess() {
             {/* 3. Sector / interest */}
             <FieldLabel
               index="3."
-              label="Select Sector/interest"
+              label="Experience"
               className="mt-6"
             />
             <GradientSelect
               name="sector"
               value={form.sector}
               onChange={handleChange}
-              placeholder="Choose a sector"
+              placeholder="Select your experience"
               options={sectorOptions}
             />
 
