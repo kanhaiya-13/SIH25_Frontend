@@ -28,29 +28,44 @@ def normalize(s: str) -> str:
 # --- Skill Extraction & Inference ---
 
 DEFAULT_SKILLS = {
+    # Existing Tech Skills
     "python", "java", "c", "c++", "c#", ".net", "javascript", "typescript",
     "node", "node.js", "react", "angular", "vue", "django", "flask",
     "spring", "fastapi", "sql", "mysql", "postgres", "mongodb", "redis",
     "elasticsearch", "aws", "azure", "gcp", "docker", "kubernetes",
     "terraform", "linux", "pandas", "numpy", "scikit-learn", "sklearn",
     "tensorflow", "pytorch", "nlp", "llm", "machine learning",
-    "deep learning", "data science", "etl", "airflow",
+    "deep learning", "data science", "etl", "airflow", "html", "css", "git",
+    "matlab",
+    
+    # Skills from Image
+    "typing", "adobe photoshop", "illustrator", "figma", "canva",
+    "seo", "creative writing", "wordpress", "proofreading",
+    "recruiting", "onboarding", "ms office", "communication",
+    "financial modeling", "ms excel", "data analysis", "valuation",
+    "instagram marketing", "facebook ads", "content creation", "analytics",
+    "autocad", "solidworks", "prototyping", "thermodynamics"
 }
 
 SKILL_SYNONYMS = {
     "js": "javascript", "ts": "typescript", "tf": "tensorflow",
     "scikit learn": "scikit-learn", "ml": "machine learning",
     "dl": "deep learning", "postgresql": "postgres",
+    "photoshop": "adobe photoshop", "excel": "ms excel", "office": "ms office"
 }
 
 SKILL_TRIGGERS = {
     "management": ["manage", "led a team", "spearheaded", "oversaw", "directed the"],
     "leadership": ["led", "lead", "mentored", "guided", "directed", "coached"],
-    "communication": ["presented", "authored", "negotiated", "liaised", "wrote"],
+    "communication": ["presented", "authored", "negotiated", "liaised", "wrote", "reported"],
     "problem-solving": ["optimized", "resolved", "troubleshoot", "debugged", "fixed"],
-    "software development": ["developed", "engineered", "built", "coded", "programmed"],
-    "data analysis": ["analyzed", "interpreted", "visualized data", "data model"],
-    "design": ["designed", "prototyped", "wireframed", "ux", "ui"],
+    "software development": ["developed", "engineered", "built", "coded", "programmed", "deployed"],
+    "data analysis": ["analyzed", "interpreted", "visualized data", "data model", "forecasted"],
+    "design": ["designed", "prototyped", "wireframed", "ux", "ui", "created mockups", "illustrated"],
+    "marketing": ["marketed", "promoted", "ran campaigns", "managed social media", "created content", "analyzed engagement"],
+    "writing/editing": ["wrote", "edited", "proofread", "published", "authored", "copywrote"],
+    "human resources": ["recruited", "hired", "onboarded", "interviewed", "managed employee relations"],
+    "finance": ["valued", "modeled financials", "analyzed budgets", "audited", "financial analysis"]
 }
 
 
