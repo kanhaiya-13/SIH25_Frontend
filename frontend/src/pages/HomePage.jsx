@@ -84,9 +84,9 @@ function TopNav() {
             <a href="#" className="hover:text-white">
               Contact
             </a>
-            <button className="ml-2 rounded-lg bg-white text-black px-4 py-2 font-medium hover:bg-white/90 transition">
+            <a href="/start-process" className="ml-2 rounded-lg bg-white text-black px-4 py-2 font-medium hover:bg-white/90 transition">
               Sign up/Login
-            </button>
+            </a>
           </nav>
 
           {/* mobile auth button */}
