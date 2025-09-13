@@ -4,6 +4,9 @@ import HomePage from "./pages/HomePage";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/Dashboard";
 import "./index.css";
+import RecommendedInternships from "./pages/RecommendedInternships";
+import StartProcess from "./pages/StartProcess";
+import InternshipForm from "./pages/InternshipForm";
 
 function App() {
   return (
@@ -15,6 +18,9 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/process-exp" element={<ProcessExp />} />
+          <Route path="/recommendations" element={<RecommendedInternships />} />
+          <Route path="/start-process" element={<StartProcess />} />
+          <Route path="/form" element={<InternshipForm />} />
         </Routes>
       </BrowserRouter>
     </>

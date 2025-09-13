@@ -1,6 +1,10 @@
 import { useState } from "react";
 import "../index.css";
 import { useNavigate } from "react-router-dom";
+import Features from "./Features";
+import Eligibility from "./Eligibility";
+import CoreBenefits from "./CoreBenefits";
+import Footer from "./Footer";
 
 const sampleRecs = [
   {
@@ -48,6 +52,10 @@ export default function HomePage() {
           <RightPanel />
         </div>
       </main>
+      <Features />
+      <Eligibility />
+      <CoreBenefits />
+      <Footer />
     </div>
   );
 }
@@ -116,9 +124,12 @@ function HeroPanel() {
           <button className="rounded-xl bg-brand-neon/90 text-black px-5 py-3 font-semibold shadow-neon hover:bg-brand-neon transition">
             Start now!
           </button>
-          <button className="rounded-xl bg-white/10 px-5 py-3 font-semibold border border-white/15 hover:bg-white/15 transition" onClick={() => {
-            navigate("/process-exp");
-          }}>
+          <button
+            className="rounded-xl bg-white/10 px-5 py-3 font-semibold border border-white/15 hover:bg-white/15 transition"
+            onClick={() => {
+              navigate("/process-exp");
+            }}
+          >
             Learn how it works
           </button>
         </div>
